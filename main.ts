@@ -19,14 +19,22 @@ export default class MyPlugin extends Plugin {
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
+			new Notice('You are in the test plugin!');
 		});
 		// Perform additional things with the ribbon
 		ribbonIconEl.addClass('my-plugin-ribbon-class');
 
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('Status Bar Text');
+		statusBarItemEl.setText('DBViews');
+
+		this.addCommand({
+			id: 'open-sample-modal-test',
+			name: 'Open a sample modal test',
+			callback: () => {
+				new SampleModal(this.app).open();
+			}
+		});
 
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
@@ -121,8 +129,8 @@ class SampleSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
+			.setName('SchemaView')
+			.setDesc('Un plugin pour pouvoir creer ses schemas de base de donnees')
 			.addText(text => text
 				.setPlaceholder('Enter your secret')
 				.setValue(this.plugin.settings.mySetting)
